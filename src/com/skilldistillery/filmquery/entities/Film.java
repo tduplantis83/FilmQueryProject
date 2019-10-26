@@ -1,6 +1,5 @@
 package com.skilldistillery.filmquery.entities;
 
-import java.time.LocalDate;
 import java.util.*;
 
 public class Film {
@@ -16,15 +15,16 @@ public class Film {
 	private double replacementCost;
 	private String rating;
 	private String specialFeatures;
+	private String filmCategory;
 	private List<Actor> cast = new ArrayList<>();
-	
+
 	public Film() {
-		
+
 	}
-	
-	public Film(int id, String title, String description, Integer releaseYear, int languageId, String language, int rentalDuration,
-			double rentalRate, int length, double replacementCost, String rating, String specialFeatures,
-			List<Actor> cast) {
+
+	public Film(int id, String title, String description, Integer releaseYear, int languageId, String language,
+			int rentalDuration, double rentalRate, int length, double replacementCost, String rating,
+			String specialFeatures, List<Actor> cast) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -136,7 +136,14 @@ public class Film {
 	public void setSpecialFeatures(String specialFeatures) {
 		this.specialFeatures = specialFeatures;
 	}
-	
+
+	public String getFilmCategory() {
+		return filmCategory;
+	}
+
+	public void setFilmCategory(String filmCategory) {
+		this.filmCategory = filmCategory;
+	}
 
 	public List<Actor> getCast() {
 		return cast;
@@ -144,6 +151,45 @@ public class Film {
 
 	public void setCast(List<Actor> cast) {
 		this.cast = cast;
+	}
+
+	public String allDetails() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("*****ALL " + getTitle() + " Details*****");
+		builder.append("\nFilm ID: \t");
+		builder.append(getId());
+		builder.append("\nTitle: \t");
+		builder.append(getTitle());
+		builder.append("\nDescription: \t");
+		builder.append(getDescription());
+		builder.append("\nRelease Year: \t");
+		builder.append(getReleaseYear());
+		builder.append("\nLanguage ID: \t");
+		builder.append(getLanguageId());
+		builder.append("\nLanguage: \t");
+		builder.append(getLanguage());
+		builder.append("\nRental Duration: \t");
+		builder.append(getRentalDuration());
+		builder.append("\nRental Rate: \t");
+		builder.append(getRentalRate());
+		builder.append("\nLength: \t");
+		builder.append(getLength());
+		builder.append("\nReplacement Cost: \t");
+		builder.append(getReplacementCost());
+		builder.append("\nRating: \t");
+		builder.append(getRating());
+		builder.append("\nFilm Category: \t");
+		builder.append(getFilmCategory());
+		builder.append("\nSpecial Features: \t");
+		builder.append(getSpecialFeatures());
+		builder.append("\nDescription: \t");
+		builder.append(getDescription());
+		builder.append("\nActors in this film: ");
+		for (Actor actor : cast) {
+			builder.append("\n" + actor.getFirstName() + " " + actor.getLastName());
+		}
+		builder.append("\n");
+		return builder.toString();
 	}
 
 	@Override
@@ -163,6 +209,7 @@ public class Film {
 		for (Actor actor : cast) {
 			builder.append("\n" + actor.getFirstName() + " " + actor.getLastName());
 		}
+		builder.append("\n");
 		return builder.toString();
 	}
 
@@ -235,7 +282,5 @@ public class Film {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }
