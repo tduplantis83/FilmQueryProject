@@ -9,6 +9,7 @@ public class Film {
 	private String description;
 	private Integer releaseYear;
 	private int languageId;
+	private String language;
 	private int rentalDuration;
 	private double rentalRate;
 	private int length;
@@ -21,7 +22,7 @@ public class Film {
 		
 	}
 	
-	public Film(int id, String title, String description, Integer releaseYear, int languageId, int rentalDuration,
+	public Film(int id, String title, String description, Integer releaseYear, int languageId, String language, int rentalDuration,
 			double rentalRate, int length, double replacementCost, String rating, String specialFeatures,
 			List<Actor> cast) {
 		super();
@@ -30,6 +31,7 @@ public class Film {
 		this.description = description;
 		this.releaseYear = releaseYear;
 		this.languageId = languageId;
+		this.language = language;
 		this.rentalDuration = rentalDuration;
 		this.rentalRate = rentalRate;
 		this.length = length;
@@ -77,6 +79,14 @@ public class Film {
 
 	public void setLanguageId(int languageId) {
 		this.languageId = languageId;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 	public int getRentalDuration() {
@@ -139,28 +149,20 @@ public class Film {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Film ID: ");
-		builder.append(getId());
-		builder.append("\tTitle: ");
+		builder.append("Title: \t");
 		builder.append(getTitle());
-		builder.append("\tDescription: ");
-		builder.append(getDescription());
-		builder.append("\tRelease Year: ");
+		builder.append("\nRelease Year: \t");
 		builder.append(getReleaseYear());
-		builder.append("\tLanguageID: ");
-		builder.append(getLanguageId());
-		builder.append("\tRental Duration: ");
-		builder.append(getRentalDuration());
-		builder.append(",\tRental Rate: ");
-		builder.append(getRentalRate());
-		builder.append("\tLength: ");
-		builder.append(getLength());
-		builder.append("\tReplacement Cost: ");
-		builder.append(getReplacementCost());
-		builder.append("\tRating: ");
+		builder.append("\nRating: \t");
 		builder.append(getRating());
-		builder.append("\tSpecialFeatures: ");
-		builder.append(getSpecialFeatures());
+		builder.append("\nLanguage: \t");
+		builder.append(getLanguage());
+		builder.append("\nDescription: \t");
+		builder.append(getDescription());
+		builder.append("\nActors in this film: ");
+		for (Actor actor : cast) {
+			builder.append("\n" + actor.getFirstName() + " " + actor.getLastName());
+		}
 		return builder.toString();
 	}
 

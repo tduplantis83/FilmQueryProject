@@ -89,12 +89,14 @@ public class Actor {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Actor ID: ");
-		builder.append(getId());
-		builder.append("\tFirst Name: ");
+		builder.append("First Name: \t");
 		builder.append(getFirstName());
-		builder.append("\tLast Name: ");
+		builder.append("\nLast Name: \t");
 		builder.append(getLastName());
+		builder.append("\nFilms Starring this Actor: ");
+		for (Film film : films) {
+			builder.append("\n" + film.getTitle());
+		}
 		return builder.toString();
 	}
 
