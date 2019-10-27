@@ -17,6 +17,7 @@ public class Film {
 	private String specialFeatures;
 	private String filmCategory;
 	private List<Actor> cast = new ArrayList<>();
+	private Map <String, Integer> conditionCount = new HashMap<>();
 
 	public Film() {
 
@@ -153,40 +154,56 @@ public class Film {
 		this.cast = cast;
 	}
 
+	public Map<String, Integer> getConditionCount() {
+		return conditionCount;
+	}
+
+	public void setConditionCount(Map<String, Integer> conditionCount) {
+		this.conditionCount = conditionCount;
+	}
+
 	public String allDetails() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("*****ALL " + getTitle() + " Details*****");
-		builder.append("\nFilm ID: \t");
+		builder.append("\nFilm ID:\t\t");
 		builder.append(getId());
-		builder.append("\nTitle: \t");
+		builder.append("\nTitle:\t\t\t");
 		builder.append(getTitle());
-		builder.append("\nDescription: \t");
+		builder.append("\nDescription:\t\t");
 		builder.append(getDescription());
-		builder.append("\nRelease Year: \t");
+		builder.append("\nRelease Year:\t\t");
 		builder.append(getReleaseYear());
-		builder.append("\nLanguage ID: \t");
+		builder.append("\nLanguage ID:\t\t");
 		builder.append(getLanguageId());
-		builder.append("\nLanguage: \t");
+		builder.append("\nLanguage:\t\t");
 		builder.append(getLanguage());
-		builder.append("\nRental Duration: \t");
+		builder.append("\nRental Duration:\t");
 		builder.append(getRentalDuration());
-		builder.append("\nRental Rate: \t");
+		builder.append("\nRental Rate:\t\t$");
 		builder.append(getRentalRate());
-		builder.append("\nLength: \t");
+		builder.append("\nLength:\t\t\t");
 		builder.append(getLength());
-		builder.append("\nReplacement Cost: \t");
+		builder.append("\nReplacement Cost:\t$");
 		builder.append(getReplacementCost());
-		builder.append("\nRating: \t");
+		builder.append("\nRating:\t\t\t");
 		builder.append(getRating());
-		builder.append("\nFilm Category: \t");
+		builder.append("\nFilm Category:\t\t");
 		builder.append(getFilmCategory());
-		builder.append("\nSpecial Features: \t");
+		builder.append("\nSpecial Features:\t");
 		builder.append(getSpecialFeatures());
-		builder.append("\nDescription: \t");
+		builder.append("\nDescription:\t\t");
 		builder.append(getDescription());
-		builder.append("\nActors in this film: ");
+		builder.append("\n**Actors in this film**");
 		for (Actor actor : cast) {
 			builder.append("\n" + actor.getFirstName() + " " + actor.getLastName());
+		}
+		builder.append("\n**Film Inventory Condition & Counts**");
+		builder.append("\nCondition\tNumber In Inventory");
+		for (String condition : conditionCount.keySet()) {
+			String key = condition.toString();
+			Integer num = conditionCount.get(condition);
+			builder.append("\n" + key);
+			builder.append("\t\t" + num);
 		}
 		builder.append("\n");
 		return builder.toString();
@@ -195,17 +212,17 @@ public class Film {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Title: \t");
+		builder.append("Title:\t\t\t");
 		builder.append(getTitle());
-		builder.append("\nRelease Year: \t");
+		builder.append("\nRelease Year:\t\t");
 		builder.append(getReleaseYear());
-		builder.append("\nRating: \t");
+		builder.append("\nRating:\t\t\t");
 		builder.append(getRating());
-		builder.append("\nLanguage: \t");
+		builder.append("\nLanguage:\t\t");
 		builder.append(getLanguage());
-		builder.append("\nDescription: \t");
+		builder.append("\nDescription:\t\t");
 		builder.append(getDescription());
-		builder.append("\nActors in this film: ");
+		builder.append("\n**Actors in this film**");
 		for (Actor actor : cast) {
 			builder.append("\n" + actor.getFirstName() + " " + actor.getLastName());
 		}

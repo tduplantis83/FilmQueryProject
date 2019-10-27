@@ -11,4 +11,5 @@ public interface DatabaseAccessor {
   public List<Actor> findActorsByFilmId(int filmId);
   public List<Film> findFilmsbyActorId(int actorID);
   public List<Film> findFilmsByKeyword(String keyword);
+  public Map<String, Integer>  findInventoryConditionCountByFilmId(int filmId);
 }

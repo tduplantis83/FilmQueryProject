@@ -23,7 +23,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	@Override
 	public Film findFilmById(int filmId) {
 		Film filmResult = null;
-//		Actor actorResult = null;
 		List<Actor> cast = new ArrayList<>();
 		String username = "student";
 		String password = "student";
@@ -54,6 +53,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					filmResult.setSpecialFeatures(rs.getString("special_features"));
 					filmResult.setLanguage(rs.getString("name"));
 					filmResult.setFilmCategory(rs.getString("categoryName"));
+					filmResult.setConditionCount(findInventoryConditionCountByFilmId(filmResult.getId()));
+
 				}
 			}
 		}
@@ -170,6 +171,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					filmResult.setSpecialFeatures(rs.getString("special_features"));
 					filmResult.setLanguage(rs.getString("name"));
 					filmResult.setFilmCategory(rs.getString("categoryname"));
+					filmResult.setConditionCount(findInventoryConditionCountByFilmId(filmResult.getId()));
 
 					filmsByActorsList.add(filmResult);
 				}
@@ -200,7 +202,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 								+ "where film.title like ? or film.description like ?");) {
 			stmt.setString(1, "%" + keyword + "%");
 			stmt.setString(2, "%" + keyword + "%");
-
+			
 			try (ResultSet rs = stmt.executeQuery();) {
 
 				while (rs.next()) {
@@ -218,6 +220,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					filmResult.setSpecialFeatures(rs.getString("special_features"));
 					filmResult.setLanguage(rs.getString("name"));
 					filmResult.setFilmCategory(rs.getString("categoryname"));
+					filmResult.setConditionCount(findInventoryConditionCountByFilmId(filmResult.getId()));
 
 					films.add(filmResult);
 				}
@@ -238,6 +241,34 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 
 		return films;
+	}
+
+	@Override
+	public Map<String, Integer> findInventoryConditionCountByFilmId(int filmId) {
+		Map<String, Integer> conditionCount = new HashMap<>();
+		String username = "student";
+		String password = "student";
+
+		// automatically closes connections
+		try (Connection conn = DriverManager.getConnection(URL, username, password);
+				PreparedStatement stmt = conn.prepareStatement(
+						"Select coalesce(i.media_condition, NULL, 'Unknown') as ItemCondition, count(IFNULL(i.media_condition, 1)) as NumInInventoryPerMediaCondition from film inner join language on film.language_id = language.id inner join film_category fc on fc.film_id = film.id inner join category on category.id = fc.category_id inner join inventory_item i on i.film_id = film.id where film.id = ? group by i.media_condition");) {
+			stmt.setInt(1, filmId);
+
+			try (ResultSet rs = stmt.executeQuery();) {
+
+				while (rs.next()) {
+					conditionCount.put(rs.getString("ItemCondition"), rs.getInt("NumInInventoryPerMediaCondition"));
+				}
+			}
+		}
+
+		catch (SQLException e) {
+			System.err.println(e);
+		}
+
+		return conditionCount;
+
 	}
 
 }
