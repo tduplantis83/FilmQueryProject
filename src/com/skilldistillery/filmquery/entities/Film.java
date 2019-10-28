@@ -198,12 +198,12 @@ public class Film {
 			builder.append("\n" + actor.getFirstName() + " " + actor.getLastName());
 		}
 		builder.append("\n**Film Inventory Condition & Counts**");
-		builder.append("\nCondition\tNumber In Inventory");
+		builder.append("\nCondition\t\tNumber In Inventory");
 		for (String condition : conditionCount.keySet()) {
 			String key = condition.toString();
 			Integer num = conditionCount.get(condition);
 			builder.append("\n" + key);
-			builder.append("\t\t" + num);
+			builder.append("\t\t\t" + num);
 		}
 		builder.append("\n");
 		return builder.toString();
