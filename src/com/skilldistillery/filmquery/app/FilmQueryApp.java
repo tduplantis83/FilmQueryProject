@@ -29,7 +29,7 @@ public class FilmQueryApp {
 		Film film = null;
 		List<Film> filmList = new ArrayList<>();
 		do {
-			System.out.println("*****Welcome to Database Gangsta's Movie Menu*****");
+			System.out.println("*****Welcome to the Movie Menu*****");
 			System.out.println("1. Look up film by ID");
 			System.out.println("2. Search for a film");
 			System.out.println("3. Exit");
