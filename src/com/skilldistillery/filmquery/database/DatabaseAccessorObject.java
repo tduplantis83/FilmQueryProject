@@ -114,7 +114,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		// automatically closes connections
 		try (Connection conn = DriverManager.getConnection(URL, username, password);
 				PreparedStatement stmt = conn.prepareStatement(
-						"SELECT actor.* FROM actor inner join film_actor fa on fa.actor_id = actor.id inner join film on film.id = fa.film_id where film.id = ?");) {
+						"SELECT actor.* FROM actor inner join film_actor fa on fa.actor_id = actor.id where fa.film_id = ?");) {
 			stmt.setInt(1, filmId);
 
 			try (ResultSet rs = stmt.executeQuery();) {
